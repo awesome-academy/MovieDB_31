@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">MovieDB_31</string>
+    <string name="categories">categories</string>
+    <string name="show_more">Show More</string>
+    <string name="top_rate">Top Rate</string>
+    <string name="movie_name">Movie Name</string>
+    <string name="popular">Popular</string>
+    <string name="up_coming">Up Coming</string>
+    <string name="now_playing">Now Playing</string>
 </resources>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="viewModel"
+            type="com.framgia.moviedb_31.screen.home.ItemHomeScreenViewModel"
+            />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:ignore="ContentDescription"
+        >
+
+        <ImageView
+            android:id="@+id/image_movie_poster"
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="@dimen/dp_130"
+            android:layout_margin="@dimen/dp_10"
+            app:imageUrl="@{viewModel.movie.poster}"
+            app:layout_constraintBottom_toTopOf="@id/text_movie_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@{viewModel.movie.rating}"
+            android:textSize="@dimen/sp_15"
+            app:layout_constraintBottom_toBottomOf="@id/image_movie_poster"
+            app:layout_constraintEnd_toEndOf="@id/image_movie_poster"
+            app:layout_constraintStart_toStartOf="@id/image_movie_poster"
+            />
+
+        <TextView
+            android:id="@+id/text_movie_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:text="@{viewModel.movie.nameMovie}"
+            android:textSize="@dimen/sp_18"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/image_movie_poster"
+            app:layout_constraintStart_toStartOf="@id/image_movie_poster"
+            app:layout_constraintTop_toBottomOf="@id/image_movie_poster"
+            />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

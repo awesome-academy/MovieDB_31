@@ -11,4 +11,8 @@ public class ItemListMovieViewModel extends BaseObservable {
     void setItemListMovieBinding(Movie movie) {
         mMovie.set(movie);
     }
+
+    public Movie getMovie() {
+        return mMovie.get();
+    }
 }

@@ -1,4 +1,4 @@
-package com.framgia.moviedb_31.screen;
+package com.framgia.moviedb_31.utils;
 
 import android.databinding.BindingAdapter;
 import android.support.v7.widget.RecyclerView;
@@ -6,8 +6,18 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.framgia.moviedb_31.R;
+import com.framgia.moviedb_31.screen.home.HomeScreenAdapter;
 
 public class BindingUtils {
+    @BindingAdapter({ "imageUrl" })
+    public static void loadImageUrl(ImageView view, String imageUrl) {
+        Glide.with(view.getContext()).load(imageUrl).into(view);
+    }
+
+    @BindingAdapter({ "Adapter" })
+    public static void setAdapter(RecyclerView view, HomeScreenAdapter adapter) {
+        view.setAdapter(adapter);
+    }
 
     @BindingAdapter("setAdapter")
     public static void setAdapter(RecyclerView recyclerView, RecyclerView.Adapter adapter) {
