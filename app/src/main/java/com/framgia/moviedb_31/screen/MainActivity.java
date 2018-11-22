@@ -1,7 +1,8 @@
-package com.framgia.moviedb_31;
+package com.framgia.moviedb_31.screen;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import com.framgia.moviedb_31.R;
 
 public class MainActivity extends AppCompatActivity {
 
