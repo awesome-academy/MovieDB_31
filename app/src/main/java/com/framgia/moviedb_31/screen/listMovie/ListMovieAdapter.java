@@ -15,11 +15,14 @@ public class ListMovieAdapter extends RecyclerView.Adapter<ListMovieAdapter.View
 
     private List<Movie> mMovieList;
 
-    ListMovieAdapter() {
+    public ListMovieAdapter() {
         mMovieList = new ArrayList<>();
     }
 
-    void updateAdapter(List<Movie> movies) {
+    public void updateAdapter(List<Movie> movies) {
+        if (mMovieList != null) {
+            mMovieList.clear();
+        }
         mMovieList.addAll(movies);
         notifyDataSetChanged();
     }

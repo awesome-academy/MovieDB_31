@@ -2,37 +2,50 @@ package com.framgia.moviedb_31.data.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Movie implements Parcelable {
 
+    @SerializedName("id")
+    @Expose
+    private String mID;
+
     @SerializedName("original_title")
+    @Expose
     private String mNameMovie;
 
     @SerializedName("vote_average")
+    @Expose
     private String mRating;
 
     @SerializedName("poster_path")
+    @Expose
     private String mPoster;
 
     @SerializedName("release_date")
+    @Expose
     private String mDate;
 
     @SerializedName("overview")
+    @Expose
     private String mContent;
 
     public Movie() {
     }
 
-    public Movie(String nameMovie, String rating, String date, String poster, String content) {
+    public Movie(String ID, String nameMovie, String rating, String poster, String date,
+            String content) {
+        mID = ID;
         mNameMovie = nameMovie;
         mRating = rating;
-        mDate = date;
         mPoster = poster;
+        mDate = date;
         mContent = content;
     }
 
     protected Movie(Parcel in) {
+        mID = in.readString();
         mNameMovie = in.readString();
         mRating = in.readString();
         mPoster = in.readString();
@@ -52,6 +65,14 @@ public class Movie implements Parcelable {
         }
     };
 
+    public String getID() {
+        return mID;
+    }
+
+    public void setID(String ID) {
+        mID = ID;
+    }
+
     public String getNameMovie() {
         return mNameMovie;
     }
@@ -68,20 +89,20 @@ public class Movie implements Parcelable {
         mRating = rating;
     }
 
-    public String getDate() {
-        return mDate;
-    }
-
-    public void setDate(String date) {
-        mDate = date;
-    }
-
     public String getPoster() {
         return mPoster;
     }
 
     public void setPoster(String poster) {
         mPoster = poster;
+    }
+
+    public String getDate() {
+        return mDate;
+    }
+
+    public void setDate(String date) {
+        mDate = date;
     }
 
     public String getContent() {
@@ -92,12 +113,14 @@ public class Movie implements Parcelable {
         mContent = content;
     }
 
+    @Override
     public int describeContents() {
         return 0;
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mID);
         dest.writeString(mNameMovie);
         dest.writeString(mRating);
         dest.writeString(mPoster);

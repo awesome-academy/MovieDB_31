@@ -27,7 +27,7 @@ public class BindingUtils {
     @BindingAdapter("setImagePoster")
     public static void setImagePoster(ImageView view, String url) {
         Glide.with(view.getContext())
-                .load(Integer.parseInt(url))
+                .load(Constant.BASE_IMAGE_URL + url)
                 .apply(new RequestOptions().placeholder(R.drawable.ic_launcher_background))
                 .into(view);
     }
