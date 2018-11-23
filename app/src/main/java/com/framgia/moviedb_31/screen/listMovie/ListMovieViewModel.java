@@ -1,33 +1,48 @@
 package com.framgia.moviedb_31.screen.listMovie;
 
 import android.databinding.ObservableField;
-import com.framgia.moviedb_31.R;
-import com.framgia.moviedb_31.data.model.Movie;
-import java.util.ArrayList;
-import java.util.List;
+import com.framgia.moviedb_31.data.model.BaseModel;
+import com.framgia.moviedb_31.data.source.remote.RemoteDataSource;
+import com.framgia.moviedb_31.data.source.repository.MovieRepository;
+import com.framgia.moviedb_31.utils.Constant;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 public class ListMovieViewModel {
 
     public ObservableField<ListMovieAdapter> mAdapterObservableField = new ObservableField<>();
     private ListMovieAdapter mListMovieAdapter;
+    private CompositeDisposable mCompositeDisposable;
+    private MovieRepository mMovieRepository;
 
     public ListMovieViewModel() {
         mListMovieAdapter = new ListMovieAdapter();
-        setData();
+        mCompositeDisposable = new CompositeDisposable();
+        mMovieRepository = MovieRepository.getInstance(RemoteDataSource.getsInstance());
+        initData();
     }
 
-    private void setData() {
-        List<Movie> movies = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            Movie movie = new Movie();
-            movie.setNameMovie("");
-            movie.setDate("");
-            movie.setRating("");
-            movie.setPoster(String.valueOf(R.drawable.poster2));
-            movie.setContent("");
-            movies.add(movie);
-        }
-        mListMovieAdapter.updateAdapter(movies);
+    private void initData() {
+        int page = 1;
+        Disposable disposable = mMovieRepository.getMovieByCategory(Constant.TOP_RATED, page)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<BaseModel>() {
+                    @Override
+                    public void accept(BaseModel baseModel) throws Exception {
+                        mAdapterObservableField.set(mListMovieAdapter);
+                        mListMovieAdapter.updateAdapter(baseModel.getResults());
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
+                    }
+                });
+        mCompositeDisposable.add(disposable);
         mAdapterObservableField.set(mListMovieAdapter);
     }
 }
