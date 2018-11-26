@@ -11,7 +11,10 @@ import com.framgia.moviedb_31.screen.home.HomeScreenAdapter;
 public class BindingUtils {
     @BindingAdapter({ "imageUrl" })
     public static void loadImageUrl(ImageView view, String imageUrl) {
-        Glide.with(view.getContext()).load(imageUrl).into(view);
+        String fullImageUrl = Constant.BASE_IMAGE_URL + imageUrl;
+        Glide.with(view.getContext())
+                .load(fullImageUrl)
+                .into(view);
     }
 
     @BindingAdapter({ "Adapter" })

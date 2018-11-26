@@ -8,15 +8,16 @@ import android.view.ViewGroup;
 import com.framgia.moviedb_31.R;
 import com.framgia.moviedb_31.data.model.Movie;
 import com.framgia.moviedb_31.databinding.ActivityHomeScreenAdapterBinding;
+import com.framgia.moviedb_31.utils.ItemClickListener;
 import java.util.ArrayList;
 import java.util.List;
 
 public class HomeScreenAdapter extends RecyclerView.Adapter<HomeScreenAdapter.ViewHolder> {
 
     private List<Movie> mMovieList;
-    private OnItemRecyclerViewClick mListener;
+    private ItemClickListener mListener;
 
-    public HomeScreenAdapter(OnItemRecyclerViewClick listener) {
+    public HomeScreenAdapter(ItemClickListener listener) {
         mMovieList = new ArrayList<>();
         mListener = listener;
     }
@@ -51,7 +52,7 @@ public class HomeScreenAdapter extends RecyclerView.Adapter<HomeScreenAdapter.Vi
         private ActivityHomeScreenAdapterBinding mBinding;
 
         ViewHolder(@NonNull ActivityHomeScreenAdapterBinding itemView,
-                OnItemRecyclerViewClick listener) {
+                ItemClickListener listener) {
             super(itemView.getRoot());
             mBinding = itemView;
             mItemHomeScreenViewModel = new ItemHomeScreenViewModel(listener);
@@ -63,9 +64,5 @@ public class HomeScreenAdapter extends RecyclerView.Adapter<HomeScreenAdapter.Vi
             mItemHomeScreenViewModel.setMovie(movie);
             mBinding.executePendingBindings();
         }
-    }
-
-    interface OnItemRecyclerViewClick {
-        void onClick(int movieId);
     }
 }

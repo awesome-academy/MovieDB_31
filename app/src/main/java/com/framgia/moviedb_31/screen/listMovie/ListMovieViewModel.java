@@ -4,7 +4,6 @@ import android.databinding.ObservableField;
 import com.framgia.moviedb_31.data.model.BaseModel;
 import com.framgia.moviedb_31.data.source.remote.RemoteDataSource;
 import com.framgia.moviedb_31.data.source.repository.MovieRepository;
-import com.framgia.moviedb_31.utils.Constant;
 import com.framgia.moviedb_31.utils.ItemClickListener;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -19,17 +18,17 @@ public class ListMovieViewModel implements ItemClickListener {
     private CompositeDisposable mCompositeDisposable;
     private MovieRepository mMovieRepository;
 
-    public ListMovieViewModel() {
+    public ListMovieViewModel(String category) {
         mListMovieAdapter = new ListMovieAdapter();
         mCompositeDisposable = new CompositeDisposable();
         mMovieRepository = MovieRepository.getInstance(RemoteDataSource.getsInstance());
-        initData();
+        initData(category);
         mListMovieAdapter.setItemClickListener(this);
     }
 
-    private void initData() {
+    private void initData(String category) {
         int page = 1;
-        Disposable disposable = mMovieRepository.getMovieByCategory(Constant.TOP_RATED, page)
+        Disposable disposable = mMovieRepository.getMovieByCategory(category, page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<BaseModel>() {

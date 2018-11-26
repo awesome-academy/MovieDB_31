@@ -18,8 +18,8 @@
 
         <ImageView
             android:id="@+id/image_movie_poster"
-            android:layout_width="@dimen/dp_100"
-            android:layout_height="@dimen/dp_130"
+            android:layout_width="@dimen/dp_150"
+            android:layout_height="@dimen/dp_200"
             android:layout_margin="@dimen/dp_10"
             app:imageUrl="@{viewModel.movie.poster}"
             app:layout_constraintBottom_toTopOf="@id/text_movie_name"
@@ -31,6 +31,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/ic_star"
             android:gravity="center"
             android:text="@{viewModel.movie.rating}"
             android:textSize="@dimen/sp_15"
@@ -44,8 +45,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/dp_10"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:maxWidth="@dimen/dp_150"
             android:text="@{viewModel.movie.nameMovie}"
-            android:textSize="@dimen/sp_18"
+            android:textSize="@dimen/sp_15"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/image_movie_poster"
             app:layout_constraintStart_toStartOf="@id/image_movie_poster"
