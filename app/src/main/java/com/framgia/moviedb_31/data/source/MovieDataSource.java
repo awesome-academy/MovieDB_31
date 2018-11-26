@@ -6,5 +6,7 @@ import io.reactivex.Flowable;
 public interface MovieDataSource {
     interface Remote {
         Flowable<BaseModel> getMovieByCategory(String category, int page);
+
+        Flowable<BaseModel> getListGenres();
     }
 }

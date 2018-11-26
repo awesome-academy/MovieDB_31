@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import com.framgia.moviedb_31.R;
 import com.framgia.moviedb_31.databinding.ActivityHomeScreenBinding;
+import com.framgia.moviedb_31.screen.listgenres.ListGenresActivity;
 import com.framgia.moviedb_31.utils.ItemClickListener;
 
 public class HomeScreenActivity extends AppCompatActivity
@@ -69,6 +70,11 @@ public class HomeScreenActivity extends AppCompatActivity
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.nav_genres:
+                startActivity(ListGenresActivity.getListGenresIntent(this));
+                break;
+        }
         return true;
     }
 
