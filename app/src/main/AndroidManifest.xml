@@ -22,5 +22,6 @@
         </activity>
         <activity android:name=".screen.listMovie.ListMovieActivity"/>
         <activity android:name=".screen.listgenres.ListGenresActivity"/>
+        <activity android:name=".screen.movieDetail.MovieDetailActivity"/>
     </application>
 </manifest>

@@ -59,6 +59,7 @@ public class ListGenresAdapter extends RecyclerView.Adapter<ListGenresAdapter.Vi
             mListener = listener;
             mItemListGenresViewModel = new ItemListGenresViewModel(mListener);
             mBinding.setItemListGenresViewModel(mItemListGenresViewModel);
+            mItemListGenresViewModel.onItemClicked(mBinding.getRoot());
         }
 
         void bindData(Genres genres) {

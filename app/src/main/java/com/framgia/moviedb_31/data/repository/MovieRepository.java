@@ -1,6 +1,8 @@
 package com.framgia.moviedb_31.data.repository;
 
+import com.framgia.moviedb_31.data.model.BaseCredit;
 import com.framgia.moviedb_31.data.model.BaseModel;
+import com.framgia.moviedb_31.data.model.Movie;
 import com.framgia.moviedb_31.data.source.remote.RemoteDataSource;
 import io.reactivex.Flowable;
 
@@ -29,5 +31,17 @@ public class MovieRepository {
 
     public Flowable<BaseModel> getMovieBySearch(String query, int page) {
         return mRemoteDataSource.getMovieBySearch(query, page);
+    }
+
+    public Flowable<Movie> getMovieDetail(String id, String type) {
+        return mRemoteDataSource.getMovieDetail(id, type);
+    }
+
+    public Flowable<BaseCredit> getMovieCredit(String id) {
+        return mRemoteDataSource.getMovieCredit(id);
+    }
+
+    public Flowable<BaseModel> getMovieByGenres(String genresId, int page) {
+        return mRemoteDataSource.getMovieByGenres(genresId, page);
     }
 }

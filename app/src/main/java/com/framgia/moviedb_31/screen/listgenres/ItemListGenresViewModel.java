@@ -24,6 +24,10 @@ public class ItemListGenresViewModel implements View.OnClickListener {
         return mGenresObservableField.get();
     }
 
+    void onItemClicked(View v) {
+        v.setOnClickListener(this);
+    }
+
     @Override
     public void onClick(View v) {
         if (mListener != null) {

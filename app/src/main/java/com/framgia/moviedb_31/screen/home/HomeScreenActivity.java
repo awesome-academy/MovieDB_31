@@ -19,6 +19,7 @@ import com.framgia.moviedb_31.R;
 import com.framgia.moviedb_31.databinding.ActivityHomeScreenBinding;
 import com.framgia.moviedb_31.screen.listMovie.ListMovieActivity;
 import com.framgia.moviedb_31.screen.listgenres.ListGenresActivity;
+import com.framgia.moviedb_31.screen.movieDetail.MovieDetailActivity;
 import com.framgia.moviedb_31.utils.Constant;
 import com.framgia.moviedb_31.utils.ItemClickListener;
 
@@ -50,6 +51,11 @@ public class HomeScreenActivity extends AppCompatActivity
         mBinding.viewSlide.setAdapter(slideAdapter);
         mBinding.navView.setNavigationItemSelectedListener(this);
         mBinding.drawerLayout.addDrawerListener(this);
+
+        mBinding.textShowMoreTopRate.setOnClickListener(this);
+        mBinding.textShowMorePopular.setOnClickListener(this);
+        mBinding.textShowMoreNowPlaying.setOnClickListener(this);
+        mBinding.textShowMoreUpComing.setOnClickListener(this);
     }
 
     @Override
@@ -90,12 +96,29 @@ public class HomeScreenActivity extends AppCompatActivity
 
     @Override
     public void onClick(View v) {
-
+        switch (v.getId()) {
+            case R.id.text_show_more_top_rate:
+                startActivity(ListMovieActivity.getListMovieIntent(this, Constant.TYPE_CATEGORY,
+                        Constant.TOP_RATED));
+                break;
+            case R.id.text_show_more_popular:
+                startActivity(ListMovieActivity.getListMovieIntent(this, Constant.TYPE_CATEGORY,
+                        Constant.POPULAR));
+                break;
+            case R.id.text_show_more_now_playing:
+                startActivity(ListMovieActivity.getListMovieIntent(this, Constant.TYPE_CATEGORY,
+                        Constant.NOW_PLAYING));
+                break;
+            case R.id.text_show_more_up_coming:
+                startActivity(ListMovieActivity.getListMovieIntent(this, Constant.TYPE_CATEGORY,
+                        Constant.UP_COMING));
+                break;
+        }
     }
 
     @Override
     public void onItemClicked(String id) {
-
+        startActivity(MovieDetailActivity.newIntent(this, id));
     }
 
     @Override

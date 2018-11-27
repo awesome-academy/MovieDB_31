@@ -11,4 +11,5 @@ public class Constant {
     public static final int PAGE_DEFAULT = 1;
     public static final String TYPE_SEARCH = "TYPE_SEARCH";
     public static final String TYPE_CATEGORY = "TYPE_CATEGORY";
+    public static final String TYPE_GENRES = "TYPE_GENRES";
 }
