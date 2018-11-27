@@ -6,6 +6,7 @@ import android.widget.Toast;
 import com.framgia.moviedb_31.data.model.BaseModel;
 import com.framgia.moviedb_31.data.repository.MovieRepository;
 import com.framgia.moviedb_31.data.source.remote.RemoteDataSource;
+import com.framgia.moviedb_31.screen.movieDetail.MovieDetailActivity;
 import com.framgia.moviedb_31.utils.Constant;
 import com.framgia.moviedb_31.utils.ItemClickListener;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -39,6 +40,9 @@ public class ListMovieViewModel implements ItemClickListener {
                 break;
             case Constant.TYPE_CATEGORY:
                 getListMovieByCategory(value);
+                break;
+            case Constant.TYPE_GENRES:
+                getMovieByGenres(value);
                 break;
         }
     }
@@ -81,10 +85,27 @@ public class ListMovieViewModel implements ItemClickListener {
         mCompositeDisposable.add(disposable);
     }
 
+    private void getMovieByGenres(String query) {
+        Disposable disposable = mMovieRepository.getMovieByGenres(query, Constant.PAGE_DEFAULT)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<BaseModel>() {
+                    @Override
+                    public void accept(BaseModel baseModel) throws Exception {
+                        mAdapterObservableField.set(mListMovieAdapter);
+                        mListMovieAdapter.updateAdapter(baseModel.getResults());
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        Toast.makeText(mContext, throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+        mCompositeDisposable.add(disposable);
+    }
+
     @Override
     public void onItemClicked(String id) {
-        if (id == null) {
-            return;
-        }
+        mContext.startActivity(MovieDetailActivity.newIntent(mContext, id));
     }
 }

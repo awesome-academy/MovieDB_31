@@ -25,4 +25,7 @@ public interface ServiceAPI {
 
     @GET("search/movie?api_key=" + BuildConfig.API_KEY)
     Flowable<BaseModel> getListMovieBySearch(@Query("query") String query, @Query("page") int page);
+
+    @GET("search/movie?api_key=" + BuildConfig.API_KEY)
+    Flowable<BaseModel> getMovieByGenres(@Query("query") String query, @Query("page") int page);
 }

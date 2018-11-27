@@ -8,9 +8,10 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.Toast;
 import com.framgia.moviedb_31.R;
 import com.framgia.moviedb_31.databinding.ActivityListGenresBinding;
+import com.framgia.moviedb_31.screen.listMovie.ListMovieActivity;
+import com.framgia.moviedb_31.utils.Constant;
 import com.framgia.moviedb_31.utils.ItemClickListener;
 
 public class ListGenresActivity extends AppCompatActivity implements ItemClickListener {
@@ -43,7 +44,7 @@ public class ListGenresActivity extends AppCompatActivity implements ItemClickLi
 
     @Override
     public void onItemClicked(String id) {
-        Toast.makeText(this, id, Toast.LENGTH_SHORT).show();
+        startActivity(ListMovieActivity.getListMovieIntent(this, Constant.TYPE_GENRES, id));
     }
 
     @Override
