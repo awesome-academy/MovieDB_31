@@ -28,6 +28,11 @@ public class RemoteDataSource implements MovieDataSource.Remote {
     }
 
     @Override
+    public Flowable<BaseModel> getMovieBySearch(String query, int page) {
+        return mServiceAPI.getListMovieBySearch(query, page);
+    }
+
+    @Override
     public Flowable<BaseModel> getListGenres() {
         return mServiceAPI.getListGenres();
     }

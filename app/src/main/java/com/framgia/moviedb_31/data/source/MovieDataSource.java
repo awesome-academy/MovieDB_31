@@ -8,5 +8,7 @@ public interface MovieDataSource {
         Flowable<BaseModel> getMovieByCategory(String category, int page);
 
         Flowable<BaseModel> getListGenres();
+
+        Flowable<BaseModel> getMovieBySearch(String query, int page);
     }
 }

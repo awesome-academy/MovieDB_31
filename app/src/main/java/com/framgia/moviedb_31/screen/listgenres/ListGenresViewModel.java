@@ -2,9 +2,8 @@ package com.framgia.moviedb_31.screen.listgenres;
 
 import android.databinding.ObservableField;
 import com.framgia.moviedb_31.data.model.BaseModel;
-import com.framgia.moviedb_31.data.model.Genres;
+import com.framgia.moviedb_31.data.repository.MovieRepository;
 import com.framgia.moviedb_31.data.source.remote.RemoteDataSource;
-import com.framgia.moviedb_31.data.source.repository.MovieRepository;
 import com.framgia.moviedb_31.utils.ItemClickListener;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;

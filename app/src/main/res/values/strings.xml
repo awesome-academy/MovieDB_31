@@ -13,4 +13,5 @@
     <string name="genres">Genres</string>
     <string name="favorite">Favorite</string>
     <string name="movie_menu">Movie Menu</string>
+    <string name="search">Search</string>
 </resources>
