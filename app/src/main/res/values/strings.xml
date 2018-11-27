@@ -7,8 +7,10 @@
     <string name="popular">Popular</string>
     <string name="up_coming">Up Coming</string>
     <string name="now_playing">Now Playing</string>
-    <string name="genres">Genres</string>
+    <string name="watch_trailer">WatchTrailer</string>
     <string name="actor">Actor</string>
+    <string name="production">Production</string>
+    <string name="genres">Genres</string>
     <string name="favorite">Favorite</string>
     <string name="movie_menu">Movie Menu</string>
 </resources>
