@@ -57,7 +57,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    app:Adapter="@{mainviewmodel.mFieldTopRating}"
+                    app:Adapter="@{mainviewmodel.adapterTopRated}"
                     app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                     app:layout_constraintTop_toBottomOf="@id/text_show_more_top_rate"
                     />
@@ -86,7 +86,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    app:Adapter="@{mainviewmodel.mFieldPopular}"
+                    app:Adapter="@{mainviewmodel.adapterPopular}"
                     app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                     app:layout_constraintTop_toBottomOf="@id/text_show_more_popular"
                     />
@@ -115,7 +115,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    app:Adapter="@{mainviewmodel.mFieldUpComing}"
+                    app:Adapter="@{mainviewmodel.adapterUpComing}"
                     app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                     app:layout_constraintTop_toBottomOf="@id/text_show_more_up_coming"
                     />
@@ -144,7 +144,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    app:Adapter="@{mainviewmodel.mFieldNowPlaying}"
+                    app:Adapter="@{mainviewmodel.adapterNowPlaying}"
                     app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                     app:layout_constraintTop_toBottomOf="@id/text_show_more_now_playing"
                     />

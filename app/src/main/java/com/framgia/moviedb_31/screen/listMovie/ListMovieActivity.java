@@ -9,7 +9,15 @@ import com.framgia.moviedb_31.R;
 import com.framgia.moviedb_31.databinding.ActivityListMovieBinding;
 
 public class ListMovieActivity extends AppCompatActivity {
-    private static final String CATEGORY = "CATEGORY";
+    private static final String EXTRA_KEY = "EXTRA_KEY";
+    private static final String EXTRA_VALUE = "EXTRA_VALUE";
+
+    public static Intent getListMovieIntent(Context context, String key, String value) {
+        Intent intent = new Intent(context, ListMovieActivity.class);
+        intent.putExtra(EXTRA_KEY, key);
+        intent.putExtra(EXTRA_VALUE, value);
+        return intent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,16 +25,12 @@ public class ListMovieActivity extends AppCompatActivity {
         initView();
     }
 
-    public static Intent getListMovieIntent(Context context, String category) {
-        Intent intent = new Intent(context, ListMovieActivity.class);
-        intent.putExtra(CATEGORY, category);
-        return intent;
-    }
-
     private void initView() {
-        ActivityListMovieBinding activityListMovieBinding =
+        ActivityListMovieBinding binding =
                 DataBindingUtil.setContentView(this, R.layout.activity_list_movie);
-        ListMovieViewModel viewModel = new ListMovieViewModel(getIntent().getStringExtra(CATEGORY));
-        activityListMovieBinding.setListMovieViewModel(viewModel);
+        ListMovieViewModel viewModel =
+                new ListMovieViewModel(this, getIntent().getStringExtra(EXTRA_KEY),
+                        getIntent().getStringExtra(EXTRA_VALUE));
+        binding.setListMovieViewModel(viewModel);
     }
 }

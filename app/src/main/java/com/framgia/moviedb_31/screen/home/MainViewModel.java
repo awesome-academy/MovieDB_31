@@ -1,6 +1,5 @@
 package com.framgia.moviedb_31.screen.home;
 
-import android.databinding.ObservableField;
 import com.framgia.moviedb_31.data.model.BaseModel;
 import com.framgia.moviedb_31.data.repository.MovieRepository;
 import com.framgia.moviedb_31.data.source.remote.RemoteDataSource;
@@ -15,45 +14,72 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainViewModel {
-    public ObservableField<HomeScreenAdapter> mFieldTopRating;
-    public ObservableField<HomeScreenAdapter> mFieldPopular;
-    public ObservableField<HomeScreenAdapter> mFieldUpComing;
-    public ObservableField<HomeScreenAdapter> mFieldNowPlaying;
+    private HomeScreenAdapter mAdapterTopRated, mAdapterUpComing, mAdapterPopular,
+            mAdapterNowPlaying;
     private CompositeDisposable mCompositeDisposable;
     private MovieRepository mMovieRepository;
     private ItemClickListener mListener;
 
     MainViewModel(ItemClickListener listener) {
         mListener = listener;
-        mFieldTopRating = new ObservableField<>();
-        mFieldPopular = new ObservableField<>();
-        mFieldUpComing = new ObservableField<>();
-        mFieldNowPlaying = new ObservableField<>();
+        mAdapterTopRated = new HomeScreenAdapter(mListener);
+        mAdapterNowPlaying = new HomeScreenAdapter(mListener);
+        mAdapterPopular = new HomeScreenAdapter(mListener);
+        mAdapterUpComing = new HomeScreenAdapter(mListener);
         mCompositeDisposable = new CompositeDisposable();
         mMovieRepository = MovieRepository.getInstance(RemoteDataSource.getsInstance());
     }
 
-    public void initData() {
-        setDataToAdapter(Constant.UP_COMING, mFieldUpComing);
-        setDataToAdapter(Constant.POPULAR, mFieldPopular);
-        setDataToAdapter(Constant.NOW_PLAYING, mFieldNowPlaying);
-        setDataToAdapter(Constant.TOP_RATED, mFieldTopRating);
+    public HomeScreenAdapter getAdapterTopRated() {
+        return mAdapterTopRated;
     }
 
-    private void setDataToAdapter(String category, final ObservableField<HomeScreenAdapter> field) {
-        int page = 1;
-        Disposable disposable = mMovieRepository.getMovieByCategory(category, page)
+    public HomeScreenAdapter getAdapterUpComing() {
+        return mAdapterUpComing;
+    }
+
+    public HomeScreenAdapter getAdapterPopular() {
+        return mAdapterPopular;
+    }
+
+    public HomeScreenAdapter getAdapterNowPlaying() {
+        return mAdapterNowPlaying;
+    }
+
+    public void initData() {
+        getMovieByCategory(Constant.TOP_RATED);
+        getMovieByCategory(Constant.UP_COMING);
+        getMovieByCategory(Constant.POPULAR);
+        getMovieByCategory(Constant.NOW_PLAYING);
+    }
+
+    private void getMovieByCategory(final String category) {
+        Disposable disposable = mMovieRepository.getMovieByCategory(category, Constant.PAGE_DEFAULT)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<BaseModel>() {
                     @Override
                     public void accept(BaseModel baseModel) throws Exception {
-                        HomeScreenAdapter homeScreenAdapter = new HomeScreenAdapter(mListener);
-                        field.set(homeScreenAdapter);
-                        homeScreenAdapter.setMovieList(baseModel.getResults());
+                        onGetDataSuccess(category, baseModel);
                     }
                 });
         mCompositeDisposable.add(disposable);
+    }
+
+    private void onGetDataSuccess(String category, BaseModel baseModel) {
+        switch (category) {
+            case Constant.TOP_RATED:
+                mAdapterTopRated.setMovieList(baseModel.getResults());
+                break;
+            case Constant.POPULAR:
+                mAdapterPopular.setMovieList(baseModel.getResults());
+                break;
+            case Constant.NOW_PLAYING:
+                mAdapterNowPlaying.setMovieList(baseModel.getResults());
+                break;
+            case Constant.UP_COMING:
+                mAdapterUpComing.setMovieList(baseModel.getResults());
+        }
     }
 
     public List<String> getImagePoster() {

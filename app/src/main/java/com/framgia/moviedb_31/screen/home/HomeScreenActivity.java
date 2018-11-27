@@ -1,5 +1,7 @@
 package com.framgia.moviedb_31.screen.home;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -7,12 +9,17 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import com.framgia.moviedb_31.R;
 import com.framgia.moviedb_31.databinding.ActivityHomeScreenBinding;
+import com.framgia.moviedb_31.screen.listMovie.ListMovieActivity;
 import com.framgia.moviedb_31.screen.listgenres.ListGenresActivity;
+import com.framgia.moviedb_31.utils.Constant;
 import com.framgia.moviedb_31.utils.ItemClickListener;
 
 public class HomeScreenActivity extends AppCompatActivity
@@ -56,6 +63,29 @@ public class HomeScreenActivity extends AppCompatActivity
                 }
         }
         return (super.onOptionsItemSelected(menuItem));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.search_view, menu);
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                startActivity(ListMovieActivity.getListMovieIntent(HomeScreenActivity.this,
+                        Constant.TYPE_SEARCH, s));
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
+        return true;
     }
 
     @Override

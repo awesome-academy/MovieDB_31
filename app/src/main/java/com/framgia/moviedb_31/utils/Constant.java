@@ -7,4 +7,7 @@ public class Constant {
     public static final String UP_COMING = "upcoming";
     public static final String POPULAR = "popular";
     public static final String NOW_PLAYING = "now_playing";
+    public static final int PAGE_DEFAULT = 1;
+    public static final String TYPE_SEARCH = "TYPE_SEARCH";
+    public static final String TYPE_CATEGORY = "TYPE_CATEGORY";
 }
