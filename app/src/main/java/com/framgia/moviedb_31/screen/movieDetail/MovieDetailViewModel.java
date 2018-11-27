@@ -1,49 +1,97 @@
 package com.framgia.moviedb_31.screen.movieDetail;
 
 import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 import android.databinding.ObservableField;
-import com.framgia.moviedb_31.data.model.Actor;
+import com.framgia.moviedb_31.BR;
+import com.framgia.moviedb_31.data.model.BaseCredit;
 import com.framgia.moviedb_31.data.model.Movie;
-import com.framgia.moviedb_31.data.model.Production;
-import java.util.ArrayList;
-import java.util.List;
+import com.framgia.moviedb_31.data.source.remote.RemoteDataSource;
+import com.framgia.moviedb_31.data.source.repository.MovieRepository;
+import com.framgia.moviedb_31.utils.Constant;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 public class MovieDetailViewModel extends BaseObservable {
-    public ObservableField<Movie> mMovie;
-    public ObservableField<MovieDetailProductionAdapter> mAdapterObservableField;
-    public ObservableField<MovieDetailActorAdapter> mActorAdapterObservableField;
+    private ObservableField<Movie> mMovie;
     private MovieDetailProductionAdapter mMovieDetailProductionAdapter;
     private MovieDetailActorAdapter mMovieDetailActorAdapter;
+    private MovieRepository mMovieRepository;
+    private CompositeDisposable mCompositeDisposable;
 
-    MovieDetailViewModel() {
+    void onStop() {
+        mCompositeDisposable.clear();
+    }
+
+    public MovieDetailProductionAdapter getMovieDetailProductionAdapter() {
+        return mMovieDetailProductionAdapter;
+    }
+
+    public MovieDetailActorAdapter getMovieDetailActorAdapter() {
+        return mMovieDetailActorAdapter;
+    }
+
+    MovieDetailViewModel(String id) {
         mMovie = new ObservableField<>();
-        mAdapterObservableField = new ObservableField<>();
         mMovieDetailProductionAdapter = new MovieDetailProductionAdapter();
-        mActorAdapterObservableField = new ObservableField<>();
         mMovieDetailActorAdapter = new MovieDetailActorAdapter();
-        initData();
-        setDataItemProduction();
-        setDataItemActor();
+        mMovieRepository = MovieRepository.getInstance(RemoteDataSource.getsInstance());
+        mCompositeDisposable = new CompositeDisposable();
+        getDataMovieContent(id);
+        getDataItemMovie(id);
     }
 
-    private void initData() {
-        Movie movie = new Movie();
-        mMovie.set(movie);
+    public void getDataMovieContent(String id) {
+        Disposable disposable = mMovieRepository.getMovieDetail(id, Constant.TYPE)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Movie>() {
+                    @Override
+                    public void accept(Movie movie) {
+                        setMovie(movie);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) {
+                        throwable.printStackTrace();
+                    }
+                });
+        mCompositeDisposable.add(disposable);
     }
 
-    private void setDataItemProduction() {
-        List<Production> productionList = new ArrayList<>();
-        mMovieDetailProductionAdapter.updateAdapter(productionList);
-        mAdapterObservableField.set(mMovieDetailProductionAdapter);
+    public void getDataItemMovie(String id) {
+        Disposable disposable = mMovieRepository.getMovieCredit(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<BaseCredit>() {
+                    @Override
+                    public void accept(BaseCredit baseCredit) {
+                        setDataAdapter(baseCredit);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) {
+                        throwable.printStackTrace();
+                    }
+                });
+        mCompositeDisposable.add(disposable);
     }
 
-    private void setDataItemActor() {
-        List<Actor> actorList = new ArrayList<>();
-        mMovieDetailActorAdapter.updateAdapter(actorList);
-        mActorAdapterObservableField.set(mMovieDetailActorAdapter);
+    private void setDataAdapter(BaseCredit baseCredit) {
+        mMovieDetailActorAdapter.updateAdapter(baseCredit.getActorList());
+        mMovieDetailProductionAdapter.updateAdapter(baseCredit.getProductionList());
     }
 
+    @Bindable
     public Movie getMovie() {
         return mMovie.get();
+    }
+
+    public void setMovie(Movie movie) {
+        mMovie.set(movie);
+        notifyPropertyChanged(BR.movie);
     }
 }

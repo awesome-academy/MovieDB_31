@@ -9,11 +9,9 @@ public class Production implements Parcelable {
     @SerializedName("credit_id")
     @Expose
     private String mID;
-
     @SerializedName("profile_path")
     @Expose
     private String mPoster;
-
     @SerializedName("name")
     @Expose
     private String mNameProduction;

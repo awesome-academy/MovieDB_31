@@ -21,13 +21,15 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            setImagePoster1="@{viewModel.production.poster}"
+            setImagePoster="@{viewModel.production.poster}"
             />
         <TextView
             android:layout_width="@dimen/dp_100"
             android:layout_height="@dimen/dp_30"
             android:layout_margin="@dimen/dp_10"
+            android:ellipsize="end"
             android:gravity="center"
+            android:maxLines="1"
             android:text="@{viewModel.production.nameProduction}"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
