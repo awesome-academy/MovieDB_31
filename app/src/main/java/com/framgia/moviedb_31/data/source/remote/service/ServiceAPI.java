@@ -9,5 +9,9 @@ import retrofit2.http.Query;
 
 public interface ServiceAPI {
     @GET("movie/{category}?api_key=" + BuildConfig.API_KEY)
-    Flowable<BaseModel> getListMovieByCategory(@Path("category") String category, @Query("page") int page);
+    Flowable<BaseModel> getListMovieByCategory(@Path("category") String category,
+            @Query("page") int page);
+
+    @GET("genre/movie/list?api_key=" + BuildConfig.API_KEY)
+    Flowable<BaseModel> getListGenres();
 }
