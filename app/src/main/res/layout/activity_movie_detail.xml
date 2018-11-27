@@ -93,6 +93,7 @@
                 android:layout_marginStart="@dimen/dp_10"
                 android:layout_marginTop="@dimen/dp_25"
                 android:gravity="center_vertical"
+                android:onClick="@{viewModel::onItemClicked}"
                 android:text="@string/watch_trailer"
                 android:textSize="@dimen/sp_20"
                 android:textStyle="italic"
