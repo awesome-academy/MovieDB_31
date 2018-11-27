@@ -1,32 +1,29 @@
 package com.framgia.moviedb_31.data.model;
 
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 import android.os.Parcel;
 import android.os.Parcelable;
+import com.framgia.moviedb_31.BR;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Movie implements Parcelable {
-
+public class Movie extends BaseObservable implements Parcelable {
     @SerializedName("id")
     @Expose
     private String mID;
-
     @SerializedName("original_title")
     @Expose
     private String mNameMovie;
-
     @SerializedName("vote_average")
     @Expose
     private String mRating;
-
     @SerializedName("poster_path")
     @Expose
     private String mPoster;
-
     @SerializedName("release_date")
     @Expose
     private String mDate;
-
     @SerializedName("overview")
     @Expose
     private String mContent;
@@ -65,6 +62,7 @@ public class Movie implements Parcelable {
         }
     };
 
+    @Bindable
     public String getID() {
         return mID;
     }
@@ -73,6 +71,7 @@ public class Movie implements Parcelable {
         mID = ID;
     }
 
+    @Bindable
     public String getNameMovie() {
         return mNameMovie;
     }
@@ -81,6 +80,7 @@ public class Movie implements Parcelable {
         mNameMovie = nameMovie;
     }
 
+    @Bindable
     public String getRating() {
         return mRating;
     }

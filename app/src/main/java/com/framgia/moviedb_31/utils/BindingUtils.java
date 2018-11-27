@@ -11,10 +11,7 @@ import com.framgia.moviedb_31.screen.home.HomeScreenAdapter;
 public class BindingUtils {
     @BindingAdapter({ "imageUrl" })
     public static void loadImageUrl(ImageView view, String imageUrl) {
-        String fullImageUrl = Constant.BASE_IMAGE_URL + imageUrl;
-        Glide.with(view.getContext())
-                .load(fullImageUrl)
-                .into(view);
+        Glide.with(view.getContext()).load(Constant.BASE_IMAGE_URL + imageUrl).into(view);
     }
 
     @BindingAdapter({ "Adapter" })
@@ -31,13 +28,6 @@ public class BindingUtils {
     public static void setImagePoster(ImageView view, String url) {
         Glide.with(view.getContext())
                 .load(Constant.BASE_IMAGE_URL + url)
-                .apply(new RequestOptions().placeholder(R.drawable.ic_launcher_background))
-                .into(view);
-    }
-    @BindingAdapter("setImagePoster1")
-    public static void setImagePoster1(ImageView view, String url) {
-        Glide.with(view.getContext())
-                .load(Integer.parseInt(url))
                 .apply(new RequestOptions().placeholder(R.drawable.ic_launcher_background))
                 .into(view);
     }

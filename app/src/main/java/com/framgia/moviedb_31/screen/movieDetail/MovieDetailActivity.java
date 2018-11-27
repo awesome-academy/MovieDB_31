@@ -7,13 +7,19 @@ import com.framgia.moviedb_31.R;
 import com.framgia.moviedb_31.databinding.ActivityMovieDetailBinding;
 
 public class MovieDetailActivity extends AppCompatActivity {
+    private ActivityMovieDetailBinding mBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityMovieDetailBinding activityMovieDetailBinding =
-                DataBindingUtil.setContentView(this, R.layout.activity_movie_detail);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_movie_detail);
         MovieDetailViewModel viewModel = new MovieDetailViewModel();
-        activityMovieDetailBinding.setViewModel(viewModel);
+        mBinding.setViewModel(viewModel);
+    }
+
+    @Override
+    protected void onStop() {
+        mBinding.getViewModel().onStop();
+        super.onStop();
     }
 }
