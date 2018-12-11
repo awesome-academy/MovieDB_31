@@ -3,6 +3,7 @@ package com.framgia.moviedb_31.data.source.remote.service;
 import com.framgia.moviedb_31.BuildConfig;
 import com.framgia.moviedb_31.data.model.BaseCredit;
 import com.framgia.moviedb_31.data.model.BaseModel;
+import com.framgia.moviedb_31.data.model.BaseVideos;
 import com.framgia.moviedb_31.data.model.Movie;
 import io.reactivex.Flowable;
 import retrofit2.http.GET;
@@ -28,4 +29,7 @@ public interface ServiceAPI {
 
     @GET("search/movie?api_key=" + BuildConfig.API_KEY)
     Flowable<BaseModel> getMovieByGenres(@Query("query") String query, @Query("page") int page);
+
+    @GET("movie/{id}/videos?api_key=" + BuildConfig.API_KEY)
+    Flowable<BaseVideos> getVideoMovie(@Path("id") String id);
 }

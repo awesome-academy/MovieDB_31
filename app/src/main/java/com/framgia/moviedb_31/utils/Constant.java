@@ -12,4 +12,5 @@ public class Constant {
     public static final String TYPE_SEARCH = "TYPE_SEARCH";
     public static final String TYPE_CATEGORY = "TYPE_CATEGORY";
     public static final String TYPE_GENRES = "TYPE_GENRES";
+    public static final int VIDEOS_DEFAULT = 1;
 }

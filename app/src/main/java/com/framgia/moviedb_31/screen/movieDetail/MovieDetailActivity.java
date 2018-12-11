@@ -24,7 +24,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_movie_detail);
         MovieDetailViewModel viewModel =
-                new MovieDetailViewModel(getIntent().getStringExtra(EXTRA_KEY));
+                new MovieDetailViewModel(this,getIntent().getStringExtra(EXTRA_KEY));
         mBinding.setViewModel(viewModel);
     }
 

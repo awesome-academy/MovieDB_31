@@ -2,6 +2,7 @@ package com.framgia.moviedb_31.data.source.remote;
 
 import com.framgia.moviedb_31.data.model.BaseCredit;
 import com.framgia.moviedb_31.data.model.BaseModel;
+import com.framgia.moviedb_31.data.model.BaseVideos;
 import com.framgia.moviedb_31.data.model.Movie;
 import com.framgia.moviedb_31.data.source.MovieDataSource;
 import com.framgia.moviedb_31.data.source.remote.service.ServiceAPI;
@@ -32,6 +33,11 @@ public class RemoteDataSource implements MovieDataSource.Remote {
     @Override
     public Flowable<BaseModel> getMovieBySearch(String query, int page) {
         return mServiceAPI.getListMovieBySearch(query, page);
+    }
+
+    @Override
+    public Flowable<BaseVideos> getVideoMovie(String id) {
+        return mServiceAPI.getVideoMovie(id);
     }
 
     @Override
